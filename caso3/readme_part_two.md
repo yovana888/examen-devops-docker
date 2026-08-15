@@ -182,3 +182,6 @@ docker push yovana888/caso3-backup-cleaner:v1
 
 - **Imagen Backup & Cleaner:** [yovana888/caso3-backup-cleaner](https://hub.docker.com/repository/docker/yovana888/caso3-backup-cleaner)
 - **Imagen PostgreSQL DB:** [yovana888/caso3-db](https://hub.docker.com/repository/docker/yovana888/caso3-db/general)
+
+Evidencias:
+https://docs.google.com/document/d/1qdtS-zdRQQ0ma3GE1JxbD0RwakAV_ZXEOla7C4cuK4U/edit?usp=sharing

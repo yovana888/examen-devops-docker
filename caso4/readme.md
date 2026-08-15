@@ -253,3 +253,6 @@ networks:
    ```bash
    docker compose down -v
    ```
+
+Evidencias:
+https://docs.google.com/document/d/1qdtS-zdRQQ0ma3GE1JxbD0RwakAV_ZXEOla7C4cuK4U/edit?usp=sharing

@@ -113,3 +113,6 @@ docker push yovana888/scale-flask:v1
 
 * **Imagen Base Original:** [fercdevv/scale-flask](https://hub.docker.com/repository/docker/fercdevv/scale-flask/general)
 * **Nueva Imagen Publicada:** [yovana888/scale-flask](https://hub.docker.com/repository/docker/yovana888/scale-flask/general)
+
+Evidencias:
+https://docs.google.com/document/d/1qdtS-zdRQQ0ma3GE1JxbD0RwakAV_ZXEOla7C4cuK4U/edit?usp=sharing
