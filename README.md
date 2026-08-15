@@ -1,1 +1,0 @@
-# examen-devops-docker
