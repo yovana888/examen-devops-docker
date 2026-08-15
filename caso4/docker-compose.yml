@@ -1,0 +1,50 @@
+services:
+  log-generator:
+    build:
+      context: ./generator
+    container_name: log-generator
+    volumes:
+      - log_data:/var/log/app
+    networks:
+      - log-network
+
+  log-rotator:
+    build:
+      context: ./rotator
+    container_name: log-rotator
+    volumes:
+      - log_data:/var/log/app
+    depends_on:
+      - log-generator
+    networks:
+      - log-network
+
+  log-compressor:
+    build:
+      context: ./compressor
+    container_name: log-compressor
+    volumes:
+      - log_data:/var/log/app
+    depends_on:
+      - log-rotator
+    networks:
+      - log-network
+
+  log-cleaner:
+    build:
+      context: ./cleaner
+    container_name: log-cleaner
+    volumes:
+      - log_data:/var/log/app
+    depends_on:
+      - log-compressor
+    networks:
+      - log-network
+
+volumes:
+  log_data:
+    driver: local
+
+networks:
+  log-network:
+    driver: bridge
