@@ -1,18 +1,18 @@
 FROM alpine:3.18
 
-# Instalar el cliente de PostgreSQL y cron
-RUN apk add --no-cache postgresql15-client dcron
+# Instalar cliente de PostgreSQL
+RUN apk add --no-cache postgresql15-client
 
-# Crear las carpetas de trabajo necesarias
+# Crear carpetas de trabajo
 RUN mkdir -p /backups /scripts /var/log
 
-# Copiar los scripts y la configuración de cron
+# Copiar los scripts de backup, limpieza y arranque
 COPY backup.sh /scripts/
 COPY cleaner.sh /scripts/
-COPY crontab /etc/crontabs/root
+COPY entrypoint.sh /scripts/
 
-# Dar permisos de ejecución a los scripts
-RUN chmod +x /scripts/backup.sh /scripts/cleaner.sh
+# Dar permisos de ejecución
+RUN chmod +x /scripts/backup.sh /scripts/cleaner.sh /scripts/entrypoint.sh
 
-# Iniciar el servicio de cron en primer plano
-CMD touch /var/log/cron.log && crond -f -l 2
+# Ejecutar el script de entrada
+CMD ["/scripts/entrypoint.sh"]
