@@ -1,0 +1,4 @@
+FROM postgres:15-alpine
+
+# Copiamos el script SQL a la carpeta especial de autoejecución de PostgreSQL
+COPY init.sql /docker-entrypoint-initdb.d/

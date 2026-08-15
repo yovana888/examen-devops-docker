@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  # Servicio 1: Base de datos PostgreSQL Custom
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile.db
+    container_name: postgres_db_container
+    restart: always
+    environment:
+      POSTGRES_DB: escuela
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - red-escuela
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d escuela"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Servicio 2: Tareas de Backup y Limpieza (Cron)
+  backup-cleaner:
+    build:
+      context: .
+      dockerfile: Dockerfile.backup
+    container_name: postgres_backup_container
+    restart: always
+    environment:
+      POSTGRES_DB: escuela
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - backup_data:/backups
+    networks:
+      - red-escuela
+
+# Definición de Volúmenes Persistentes
+volumes:
+  postgres_data:
+    driver: local
+  backup_data:
+    driver: local
+
+# Definición de Red Personalizada
+networks:
+  red-escuela:
+    driver: bridge
